@@ -118,10 +118,10 @@
 
 <html>
 <head>
-	<title>This is my paper title</title>
-	<meta property="og:image" content="Path to my teaser.png"/> <!-- Facebook automatically scrapes this. Go to https://developers.facebook.com/tools/debug/ if you update and want to force Facebook to rescrape. -->
-	<meta property="og:title" content="Creative and Descriptive Paper Title." />
-	<meta property="og:description" content="Paper description." />
+	<title>Adapting Pretrained Vision-Language Foundational Models to Medical Imaging Domains</title>
+	<meta property="og:image" content="./resources/stablecxr_teaser.jpg"/>
+	<meta property="og:title" content="Adapting Pretrained Vision-Language Foundational Models</br>to Medical Imaging Domains." />
+	<meta property="og:description" content="Using Stable Diffusion to generate realistic-looking medical images." />
 
 	<!-- Get from Google Analytics -->
 	<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -138,58 +138,72 @@
 <body>
 	<br>
 	<center>
-		<span style="font-size:36px">Creative and Descriptive Paper Title</span>
+		<span style="font-size:36px">Adapting Pretrained Vision-Language Foundational Models</br>to Medical Imaging Domains</span>
+		</br></br>
 		<table align=center width=600px>
-			<table align=center width=600px>
-				<tr>
-					<td align=center width=100px>
+			<table align=center width=450px>
+				<tr style="font-size: 18px">
+					<td align=center width=120px >
 						<center>
-							<span style="font-size:24px"><a href="https://en.wikipedia.org/wiki/James_J._Gibson">First Author</a></span>
+							<span><a href="https://www.linkedin.com/in/pierre-chambon/">Pierre Chambon<sup>(*)</sup></a></span>
 						</center>
 					</td>
-					<td align=center width=100px>
+					<td align=center width=120px>
 						<center>
-							<span style="font-size:24px"><a href="https://en.wikipedia.org/wiki/James_J._Gibson">Second Author</a></span>
+							<span><a href="https://www.linkedin.com/in/bluethgen/">Christian Bluethgen<sup>(*)</sup></a></span>
 						</center>
 					</td>
-					<td align=center width=100px>
+					<td align=center width=120px>
 						<center>
-							<span style="font-size:24px"><a href="https://en.wikipedia.org/wiki/James_J._Gibson">Third Author</a></span>
+							<span><a href="https://profiles.stanford.edu/curtis-langlotz">Curt Langlotz</a></span>
+						</center>
+					</td>
+					<td align=center width=120px>
+						<center>
+							<span><a href="https://profiles.stanford.edu/akshay-chaudhari">Akshay Chaudhari</a></span>
 						</center>
 					</td>
 				</tr>
 			</table>
+		<span style="text-align: center;">Center for Artificial Intelligence in Medicine and Imaging (AIMI), Stanford University</span>
+		</br></br></br>
+		<table align=center width=850px>
+			<tr>
+				<td width=260px>
+					<center>
+						<img class="round" style="width:700px; border: 0px;" src="./resources/stablecxr_teaser.jpg"/>
+					</center>
+				</td>
+			</tr>
+		</table>
 			<table align=center width=250px>
 				<tr>
 					<td align=center width=120px>
 						<center>
-							<span style="font-size:24px"><a href=''>[Paper]</a></span>
+							<span style="font-size:24px"><a href='https://arxiv.org/abs/2112.10752'>[Paper]</a></span>
 						</center>
 					</td>
 					<td align=center width=120px>
 						<center>
-							<span style="font-size:24px"><a href='https://github.com/richzhang/webpage-template'>[GitHub]</a></span><br>
+							<span style="font-size:24px"><a href='./resources/bibtex.txt'>[BibTeX]</a></span><br>
 						</center>
 					</td>
+					<!-- <td align=center width=120px>
+						<center>
+							<span style="font-size:24px"><a href='#' style="color:gray">[GitHub]</a></span><br>
+						</center>
+					</td> -->
 				</tr>
 			</table>
 		</table>
 	</center>
 
 	<center>
-		<table align=center width=850px>
-			<tr>
-				<td width=260px>
-					<center>
-						<img class="round" style="width:500px" src="./resources/teaser.png"/>
-					</center>
-				</td>
-			</tr>
-		</table>
+
 		<table align=center width=850px>
 			<tr>
 				<td>
-					This was a template originally made for <a href="http://richzhang.github.io/colorization/">Colorful Image Colorization</a>. The code can be found in this <a href="https://github.com/richzhang/webpage-template">repository</a>.
+					
 				</td>
 			</tr>
 		</table>
@@ -200,31 +214,17 @@
 	<table align=center width=850px>
 		<center><h1>Abstract</h1></center>
 		<tr>
-			<td>
-				This is my abstract.
+			<td style='text-align: justify;'>
+				<p >Multi-modal foundation models are typically trained on millions of pairs of naturalimages and text captions, frequently obtained through web-crawling approaches. Although such models depict excellent generative capabilities, they do not typically generalize well to specific domains such as medical images that have fundamentallyshifted distributions compared to natural images. Building generative models for medical images that faithfully depict clinical context may help alleviate the paucity of healthcare datasets.
+				<p>Thus, in this study, we seek to research and expand the representational capabilities of large pretrained foundation models to medical concepts, specifically for leveraging the Stable Diffusion model to generate domain-specific images found in medical imaging. We explore the sub-components ofthe Stable Diffusion pipeline (the variational autoencoder, the U-Net and the text-encoder) to fine-tune the model to generate medical images. We benchmark the efficacy of these efforts using quantitative image quality metrics and qualitative radiologist-driven evaluations that accurately represent the clinical content of conditional text prompts.</p>
+				<p>Our best-performing model improves upon the stablediffusion baseline and can be conditioned to insert a realistic-looking abnormalityon a synthetic radiology image, while maintaining a 95% accuracy on a classifiertrained to detect the abnormality.</p>
 			</td>
 		</tr>
 	</table>
 	<br>
-
-	<hr>
-	<center><h1>Talk</h1></center>
-	<p align="center">
-		<iframe width="660" height="395" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen align="center"></iframe>
-	</p>
-
-	<table align=center width=800px>
-		<br>
-		<tr>
-			<center>
-				<span style="font-size:28px"><a href=''>[Slides]</a>
-				</span>
-			</center>
-		</tr>
-	</table>
 	<hr>
 
-	<center><h1>Code</h1></center>
+	<!-- <center><h1>Code</h1></center>
 
 	<table align=center width=420px>
 		<center>
@@ -233,42 +233,45 @@
 				</td>
 			</tr>
 		</center>
-	</table>
+	</table> -->
+
+	<br>
 	<table align=center width=400px>
 		<tr>
 			<td align=center width=400px>
 				<center>
-					<td><img class="round" style="width:450px" src="./resources/method_diagram.png"/></td>
+					<td><img class="round" style="width:800px" src="./resources/stablecxr_gallery.png"/></td>
 				</center>
 			</td>
 		</tr>
 	</table>
+	<br>
 	<table align=center width=850px>
 		<center>
 			<tr>
 				<td>
-					Short description if wanted
+					Add Description
 				</td>
 			</tr>
 		</center>
 	</table>
-	<table align=center width=800px>
+	<!-- <table align=center width=800px>
 		<br>
 		<tr><center>
-			<span style="font-size:28px">&nbsp;<a href='https://github.com/richzhang/webpage-template'>[GitHub]</a>
+			<span style="font-size:28px">&nbsp;<a href='#'>[GitHub]</a>
 			</center>
 		</span>
-	</table>
+	</table> -->
 	<br>
 	<hr>
-	<table align=center width=450px>
-		<center><h1>Paper and Supplementary Material</h1></center>
+	<table align=center width=550px>
+		<center><h1>Paper</h1></center>
 		<tr>
-			<td><a href=""><img class="layered-paper-big" style="height:175px" src="./resources/paper.png"/></a></td>
-			<td><span style="font-size:14pt">F. Author, S. Author, T. Author.<br>
-				<b>Creative and Descriptive Paper Title.</b><br>
-				In Conference, 20XX.<br>
-				(hosted on <a href="">ArXiv</a>)<br>
+			<td><a href=""><img class="layered-paper-big" style="height:175px" src="./resources/stablecxr_arxiv_mini.png"/></a></td>
+			<td><span style="font-size:14pt">P. Chambon, C. Bluethgen,<br>CP. Langlotz, A. Chaudhari<br>
+				<b>Adapting Pretrained Vision-Language Foundational Models to Medical Imaging Domains.</b><br>
+				In Proceedings, 2022.<br>
+				(hosted on <a href="#"><strike>ArXiv</strike></a>)<br>
 				<!-- (<a href="./resources/camera-ready.pdf">camera ready</a>)<br> -->
 				<span style="font-size:4pt"><a href=""><br></a>
 				</span>
@@ -293,13 +296,15 @@
 			<td width=400px>
 				<left>
 					<center><h1>Acknowledgements</h1></center>
-					This template was originally made by <a href="http://web.mit.edu/phillipi/">Phillip Isola</a> and <a href="http://richzhang.github.io/">Richard Zhang</a> for a <a href="http://richzhang.github.io/colorization/">colorful</a> ECCV project; the code can be found <a href="https://github.com/richzhang/webpage-template">here</a>.
+					<p style="text-align: justify;">Research reported in this publication was made possible in part by the National Institute of Biomedical Imaging and Bioengineering (NIBIB) of the National Institutes of Health, which funded PC under contracts 75N92020C00008 and 75N92020C00021. CB received support from the Swiss Society of Radiology and the Kurt and Senta Herrmann-Foundation, unrelated to this work. We acknowledge the support of this work by the Wu Tsai Human Performance Alliance at Stanford University and the Joe and Clara Tsai Foundation.</p>
 				</left>
 			</td>
 		</tr>
 	</table>
 
-<br>
+<br />
+<center><span style="font-size: 10px; text-align: center;">This template was originally made by <a href="http://web.mit.edu/phillipi/">Phillip Isola</a> and <a href="http://richzhang.github.io/">Richard Zhang</a> for a <a href="http://richzhang.github.io/colorization/">colorful</a> ECCV project; the code can be found <a href="https://github.com/richzhang/webpage-template">here</a>.</span></center>
+<br />
 </body>
 </html>
 
