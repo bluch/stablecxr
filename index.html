@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <script src="http://www.google.com/jsapi" type="text/javascript"></script> 
 <script type="text/javascript">google.load("jquery", "1.3.2");</script>
 
@@ -114,13 +115,29 @@
 		height: 1px;
 		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 	}
+
+	* {box-sizing: border-box;}
+
+	.img-magnifier-container {
+	position: relative;
+	}
+
+	.img-magnifier-glass {
+	position: absolute;
+	border: 3px solid #000;
+	border-radius: 50%;
+	cursor: none;
+	/*Set the size of the magnifier glass:*/
+	width: 300px;
+	height: 300px;
+	}
 </style>
 
 <html>
 <head>
 	<title>Adapting Pretrained Vision-Language Foundational Models to Medical Imaging Domains</title>
 	<meta property="og:image" content="./resources/stablecxr_teaser.jpg"/>
-	<meta property="og:title" content="Adapting Pretrained Vision-Language Foundational Models</br>to Medical Imaging Domains." />
+	<meta property="og:title" content="Adapting Pretrained Vision-Language Foundational Models to Medical Imaging Domains." />
 	<meta property="og:description" content="Using Stable Diffusion to generate realistic-looking medical images." />
 
 	<!-- Get from Google Analytics -->
@@ -131,7 +148,78 @@
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 
-		gtag('config', 'UA-75863369-6');
+		gtag('config', 'G-SM533FK505');
+
+		/* added from https://www.w3schools.com/howto/howto_js_image_magnifier_glass.asp */ 
+		function unmagnify(imgID) {
+		var img;
+		img = document.getElementById(imgID);
+		img.setAttribute("class", "img-normal")
+		glass = document.getElementById("MAGNIFYINGGLASS")
+		glass.setAttribute("style", "visibility: hidden")
+		delete(glass)
+		}
+		function magnify(imgID, zoom) {
+		var img, glass, w, h, bw;
+		img = document.getElementById(imgID);
+
+		/* Create magnifier glass: */
+		glass = document.createElement("DIV");
+		glass.setAttribute("class", "img-magnifier-glass");
+		glass.setAttribute("id", "MAGNIFYINGGLASS")
+
+		/* Insert magnifier glass: */
+		img.parentElement.insertBefore(glass, img);
+
+		/* Set background properties for the magnifier glass: */
+		glass.style.backgroundImage = "url('" + img.src + "')";
+		glass.style.backgroundRepeat = "no-repeat";
+		glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+		bw = 3;
+		w = glass.offsetWidth / 2;
+		h = glass.offsetHeight / 2;
+
+		/* Execute a function when someone moves the magnifier glass over the image: */
+		glass.addEventListener("mousemove", moveMagnifier);
+		img.addEventListener("mousemove", moveMagnifier);
+
+		/*and also for touch screens:*/
+		glass.addEventListener("touchmove", moveMagnifier);
+		img.addEventListener("touchmove", moveMagnifier);
+		function moveMagnifier(e) {
+			var pos, x, y;
+			/* Prevent any other actions that may occur when moving over the image */
+			e.preventDefault();
+			/* Get the cursor's x and y positions: */
+			pos = getCursorPos(e);
+			x = pos.x;
+			y = pos.y;
+			/* Prevent the magnifier glass from being positioned outside the image: */
+			if (x > img.width - (w / zoom)) {x = img.width - (w / zoom);}
+			if (x < w / zoom) {x = w / zoom;}
+			if (y > img.height - (h / zoom)) {y = img.height - (h / zoom);}
+			if (y < h / zoom) {y = h / zoom;}
+			/* Set the position of the magnifier glass: */
+			glass.style.left = (x - w) + "px";
+			glass.style.top = (y - h) + "px";
+			/* Display what the magnifier glass "sees": */
+			glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+		}
+
+		function getCursorPos(e) {
+			var a, x = 0, y = 0;
+			e = e || window.event;
+			/* Get the x and y positions of the image: */
+			a = img.getBoundingClientRect();
+			/* Calculate the cursor's x and y coordinates, relative to the image: */
+			x = e.pageX - a.left;
+			y = e.pageY - a.top;
+			/* Consider any page scrolling: */
+			x = x - window.pageXOffset;
+			y = y - window.pageYOffset;
+			return {x : x, y : y};
+		}
+		}
 	</script>
 </head>
 
@@ -215,8 +303,8 @@
 		<center><h1>Abstract</h1></center>
 		<tr>
 			<td style='text-align: justify;'>
-				<p >Multi-modal foundation models are typically trained on millions of pairs of naturalimages and text captions, frequently obtained through web-crawling approaches. Although such models depict excellent generative capabilities, they do not typically generalize well to specific domains such as medical images that have fundamentally shifted distributions compared to natural images. Building generative models for medical images that faithfully depict clinical context may help alleviate the paucity of healthcare datasets.
-				<p>Thus, in this study, we seek to research and expand the representational capabilities of large pretrained foundation models to medical concepts, specifically for leveraging the Stable Diffusion model to generate domain-specific images found in medical imaging. We explore the sub-components ofthe Stable Diffusion pipeline (the variational autoencoder, the U-Net and the text-encoder) to fine-tune the model to generate medical images. We benchmark the efficacy of these efforts using quantitative image quality metrics and qualitative radiologist-driven evaluations that accurately represent the clinical content of conditional text prompts.</p>
+				<p >Multi-modal foundation models are typically trained on millions of pairs of natural images and text captions, frequently obtained through web-crawling approaches. Although such models depict excellent generative capabilities, they do not typically generalize well to specific domains such as medical images that have fundamentally shifted distributions compared to natural images. Building generative models for medical images that faithfully depict clinical context may help alleviate the paucity of healthcare datasets.
+				<p>Thus, in this study, we seek to research and expand the capabilities of large pretrained foundation models to medical concepts, specifically for leveraging the Stable Diffusion model to generate domain-specific images found in medical imaging. We explore the main sub-components of the Stable Diffusion pipeline (the variational autoencoder, the U-Net and the text-encoder) to fine-tune the model to generate medical images. We benchmark the efficacy of these efforts using quantitative image quality metrics, and perform qualitative evaluations by a trained radiologist to evaluate that the generated images accurately represent the medical content of conditional text prompts.</p>
 				<p>Our best-performing model improves upon the Stable Diffusion baseline and can be conditioned to insert a realistic-looking abnormality on a synthetic radiology image, while maintaining a 95% accuracy on a classifier trained to detect the abnormality.</p>
 			</td>
 		</tr>
@@ -238,20 +326,46 @@
 	<br>
 	<table align=center width=400px>
 		<tr>
-			<td align=center width=400px>
-				<center>
-					<td><img class="round" style="width:800px" src="./resources/stablecxr_gallery.png"/></td>
+			<td align=center width=400px >
+				<center >
+					<td class="img-magnifier-container"><img id="myimage" style="width:800px" src="./resources/stablecxr_gallery.png"/></td>
 				</center>
 			</td>
 		</tr>
 	</table>
 	<br>
+	<hr>
+	<br>
 	<table align=center width=850px>
+		<center><h1>Gallery of Examples</h1></center>
 		<center>
 			<tr>
-				<td>
-					Add Description
-				</td>
+				<td><a href="./resources/gallery/no.1.jpg"><img width='150px' src="./resources/gallery/no.1.jpg" alt="a photo of a lung xray" name="jpg1"></a></td>
+				<td><a href="./resources/gallery/no.2.jpg"><img width='150px' src="./resources/gallery/no.2.jpg" alt="a photo of a lung xray" name="jpg2"></a></td>
+				<td><a href="./resources/gallery/no.3.jpg"><img width='150px' src="./resources/gallery/no.3.jpg" alt="a photo of a lung xray" name="jpg3"></a></td>
+				<td><a href="./resources/gallery/no.4.jpg"><img width='150px' src="./resources/gallery/no.4.jpg" alt="a photo of a lung xray" name="jpg4"></a></td>
+				<td><a href="./resources/gallery/no.5.jpg"><img width='150px' src="./resources/gallery/no.5.jpg" alt="a photo of a lung xray" name="jpg5"></a></td>
+			</tr>
+			<tr>
+				<td><a href="./resources/gallery/no.6.jpg"><img width='150px' src="./resources/gallery/no.6.jpg" alt="a photo of a lung xray" name="jpg6"></a></td>
+				<td><a href="./resources/gallery/no.7.jpg"><img width='150px' src="./resources/gallery/no.7.jpg" alt="a photo of a lung xray" name="jpg7"></a></td>
+				<td><a href="./resources/gallery/no.8.jpg"><img width='150px' src="./resources/gallery/no.8.jpg" alt="a photo of a lung xray" name="jpg8"></a></td>
+				<td><a href="./resources/gallery/no.9.jpg"><img width='150px' src="./resources/gallery/no.9.jpg" alt="a photo of a lung xray" name="jpg9"></a></td>
+				<td><a href="./resources/gallery/no.10.jpg"><img width='150px' src="./resources/gallery/no.10.jpg" alt="a photo of a lung xray" name="jpg10"></a></td>
+			</tr>
+			<tr>
+				<td><a href="./resources/gallery/pe.1.jpg"><img width='150px' src="./resources/gallery/pe.1.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg101"></a></td>
+				<td><a href="./resources/gallery/pe.2.jpg"><img width='150px' src="./resources/gallery/pe.2.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg102"></a></td>
+				<td><a href="./resources/gallery/pe.3.jpg"><img width='150px' src="./resources/gallery/pe.3.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg103"></a></td>
+				<td><a href="./resources/gallery/pe.4.jpg"><img width='150px' src="./resources/gallery/pe.4.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg104"></a></td>
+				<td><a href="./resources/gallery/pe.5.jpg"><img width='150px' src="./resources/gallery/pe.5.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg105"></a></td>
+			</tr>
+			<tr>
+				<td><a href="./resources/gallery/pe.6.jpg"><img width='150px' src="./resources/gallery/pe.6.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg106"></a></td>
+				<td><a href="./resources/gallery/pe.7.jpg"><img width='150px' src="./resources/gallery/pe.7.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg107"></a></td>
+				<td><a href="./resources/gallery/pe.8.jpg"><img width='150px' src="./resources/gallery/pe.8.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg108"></a></td>
+				<td><a href="./resources/gallery/pe.9.jpg"><img width='150px' src="./resources/gallery/pe.9.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg109"></a></td>
+				<td><a href="./resources/gallery/pe.10.jpg"><img width='150px' src="./resources/gallery/pe.10.jpg" alt="a photo of a lung xray with visible pleural effusion" name="jpg110"></a></td>
 			</tr>
 		</center>
 	</table>
@@ -271,7 +385,7 @@
 			<td><span style="font-size:14pt">P. Chambon, C. Bluethgen,<br>CP. Langlotz, A. Chaudhari<br>
 				<b>Adapting Pretrained Vision-Language Foundational Models to Medical Imaging Domains.</b><br>
 				In Proceedings, 2022.<br>
-				(hosted on <a href="#"><strike>ArXiv</strike></a>)<br>
+				(hosted on <a href="#">ArXiv</a>)<br>
 				<!-- (<a href="./resources/camera-ready.pdf">camera ready</a>)<br> -->
 				<span style="font-size:4pt"><a href=""><br></a>
 				</span>
